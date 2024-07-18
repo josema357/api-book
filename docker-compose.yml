@@ -1,0 +1,40 @@
+version: "3.9"
+
+services:
+  book:
+    container_name: book
+    image: josema-java-app:1.0.0
+    build: .
+    ports:
+      - 8080:4000
+    environment:
+      - DB_URL=${DB_URL}
+      - DB_USERNAME=${DB_USERNAME}
+      - DB_PASSWORD=${DB_PASSWORD}
+    depends_on:
+      java_db:
+        condition: service_healthy
+  pgadmin:
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_EMAIL}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_PASSWORD}
+    ports:
+      - 80:80
+    depends_on:
+      java_db:
+        condition: service_healthy
+  java_db:
+    container_name: java_db
+    image: postgres
+    ports:
+      - 5433:5432
+    environment:
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+      - POSTGRES_USER=${DB_USERNAME}
+      - POSTGRES_DB=book
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 20s
+      timeout: 5s
+      retries: 5

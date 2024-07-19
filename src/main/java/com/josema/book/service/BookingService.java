@@ -1,20 +1,19 @@
 package com.josema.book.service;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.josema.book.controller.BookingController;
 import com.josema.book.dto.BookRequest;
 import com.josema.book.dto.BookResponse;
 import com.josema.book.model.Booking;
 import com.josema.book.repository.BookingRepository;
 
+import lombok.extern.slf4j.Slf4j;
+
 @Service
+@Slf4j
 public class BookingService {
   private final BookingRepository bookingRepository;
-  private static final Logger logger = LoggerFactory.getLogger(BookingController.class);
 
   public BookingService(BookingRepository bookingRepository){
     this.bookingRepository = bookingRepository;
@@ -22,7 +21,7 @@ public class BookingService {
 
   @Transactional
   public BookResponse registerBooking(BookRequest bookRequest){
-    logger.debug("Entering method : registerBooking");
+    log.debug("Entering method : registerBooking");
     Booking booking = new Booking(
       bookRequest.id(),
       bookRequest.name(),
@@ -36,10 +35,10 @@ public class BookingService {
     );
     try {
       bookingRepository.save(booking);
-      logger.info("Successfully saved booking", bookRequest.id());
-      logger.debug("Existing method : registerBooking");
+      log.info("Successfully saved booking : bookId : {}", bookRequest.id());
+      log.debug("Existing method : registerBooking");
     } catch (Exception e) {
-      logger.error("Error saving booking");
+      log.error("Error saving booking");
       throw e;
     }
     

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN">
+    <Appenders>
+        <Console name="STDOUT" target="SYSTEM_OUT">
+            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss.SSS} [%level] %logger{36} - %msg% %n"/>
+        </Console>
+        <RollingFile name="MY_FILE" fileName="application.log">
+          <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss.SSS} [%level] %logger{36} - %msg% %n"/>
+      
+          <SizeBasedTriggeringPolicy strategy="Size" size="10MB"/>
+          <GzipCompressionStrategy/>
+          <DeleteAction/>
+      </RollingFile>
+    </Appenders>
+
+    <Loggers>
+        <Root level="info">
+            <AppenderRef ref="STDOUT"/>
+            <AppenderRef ref="MY_FILE"/>
+        </Root>
+    </Loggers>
+</Configuration>

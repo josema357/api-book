@@ -2,11 +2,11 @@ package com.josema.book.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.FieldError;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.client.RestClientException;
 
 import java.util.List;
 import com.josema.book.dto.ErrorResponse;
@@ -29,5 +29,16 @@ public class HandlerException {
 
     ErrorResponse errorResponse = new ErrorResponse(400, "Bad Request", firstError);
     return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
+  }
+
+  @ExceptionHandler(InvalidDiscountException.class)
+  public ResponseEntity<ErrorResponse> handleInvalidDiscountException(InvalidDiscountException ex){
+    ErrorResponse errorResponse = new ErrorResponse(409, "Conflit", ex.getMessage());
+    return new ResponseEntity<>(errorResponse, HttpStatus.CONFLICT);
+  }
+
+  @ExceptionHandler(RestClientException.class)
+  public ResponseEntity<String> handleRestClientException(RestClientException ex){
+    return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
   }
 }

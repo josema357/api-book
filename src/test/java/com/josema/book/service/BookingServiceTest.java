@@ -1,6 +1,5 @@
 package com.josema.book.service;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -21,8 +20,8 @@ public class BookingServiceTest {
 
   BookRequest bookRequest;
 
-  @BeforeEach
-  void setUp(){
+  @Test
+  public void registerBookingAndReturnBookResponse() {
     bookRequest = new BookRequest(
       "14564088-4",
       "Gonzalo",
@@ -31,18 +30,12 @@ public class BookingServiceTest {
       "56988123222",
       LocalDate.of(2023, 7, 1),
       LocalDate.of(2023, 7, 15),
-      "213132",
-      "D0542A23"
+      "213132", null
     );
-
-  }
-
-  @Test
-  public void registerBookingAndReturnBookResponse() {
-    BookResponse response = bookingService.registerBooking(bookRequest);
+    
+    BookResponse response = bookingService.registerBook(bookRequest);
 
     assertEquals(200, response.code());
     assertEquals("Book Accepted", response.message());
   }
-
 }

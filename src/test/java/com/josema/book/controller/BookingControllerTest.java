@@ -28,7 +28,7 @@ public class BookingControllerTest {
   @Test
   public void saveBooking() throws Exception{
     BookResponse bookResponse = new BookResponse(200, "Book Accepted");
-    when(bookingService.registerBooking(Mockito.any(BookRequest.class))).thenReturn(bookResponse);
+    when(bookingService.registerBook(Mockito.any(BookRequest.class))).thenReturn(bookResponse);
     mockMvc.perform(post("/book")
       .contentType(MediaType.APPLICATION_JSON)
       .content("{\n" +
@@ -39,8 +39,7 @@ public class BookingControllerTest {
             "  \"phoneNumber\": \"56988123222\",\n" +
             "  \"startDate\": \"2024-07-19\",\n" +
             "  \"endDate\": \"2024-07-19\",\n" +
-            "  \"houseId\": \"213132\",\n" +
-            "  \"discountCode\": \"D0542A23\"\n" +
+            "  \"houseId\": \"213132\"\n" +
             "}"))
       .andExpect(status().isOk())
       .andExpect(jsonPath("$.code").value(200))

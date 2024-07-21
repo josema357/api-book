@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import com.josema.book.model.Booking;
 
 @Repository
-public interface BookingRepository extends JpaRepository<Booking, String> {
+public interface BookingRepository extends JpaRepository<Booking, Long> {
   
 }

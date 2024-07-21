@@ -30,7 +30,8 @@ public class BookingServiceTest {
       "56988123222",
       LocalDate.of(2023, 7, 1),
       LocalDate.of(2023, 7, 15),
-      "213132", null
+      "213132",
+      null
     );
     
     BookResponse response = bookingService.registerBook(bookRequest);

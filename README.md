@@ -67,3 +67,5 @@ Book
         "discountCode": "D0542A23"
       }
 ```
+### Documentacion openapi
+- Ruta: `http://localhost:4000/bideafactory/swagger-ui.html`
